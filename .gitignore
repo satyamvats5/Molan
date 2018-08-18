@@ -1,5 +1,6 @@
 # Storage for database object
 db.json
+*.sql
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

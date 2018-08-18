@@ -25,6 +25,7 @@ from flask_restful import Api
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_profiler import Profiler
 
 # Import Utility Functions and Configurations
 from Util import Config
@@ -92,6 +93,21 @@ api.add_resource(
 #    Authentication,
 #    Config.API_PATH + "/signup",
 #    endpoint = "signup_ep")
+
+
+# Monitoring Dashboard
+app.config["flask_profiler"] = {
+    "enabled": True,
+    "storage": {
+        "engine": "sqlite"
+    },
+    "basicAuth": {
+        "enabled": False
+    },
+    "ignore": [ "^/static/.*" ]
+}
+
+Profiler(app)
 
 
 # Environment Variables
