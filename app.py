@@ -32,7 +32,7 @@ from Util import Config
 # Import Controller Modules
 from Controller.Status import Status
 from Controller.Submit import Submit
-# from Controller.Authentication import Authentication
+from Controller.Authentication import Authentication
 
 
 # Define Flask Application
@@ -44,8 +44,8 @@ app.config["WTF_CSRF_TIME_LIMIT"]   = 3600
 app.config["SESSION_COOKIE_NAME"]   = "_auth_session"
 app.config["SESSION_PERMANENT"]     = False
 
-csrf = CSRFProtect(app)
-app.jinja_env.globals['csrf_token'] = generate_csrf
+#csrf = CSRFProtect(app)
+#app.jinja_env.globals['csrf_token'] = generate_csrf
 
 limiter = Limiter(
     app,
@@ -88,10 +88,10 @@ api.add_resource(
 #    Authentication,
 #    Config.API_PATH + "/logout",
 #    endpoint = "logout_ep")
-# api.add_resource(
-#    Authentication,
-#    Config.API_PATH + "/signup",
-#    endpoint = "signup_ep")
+api.add_resource(
+   Authentication,
+   Config.API_PATH + "/signup",
+   endpoint = "signup_ep")
 
 
 # Environment Variables
@@ -117,14 +117,14 @@ if __name__ == "__main__":
                     except Exception:
                         print("Error: Invaid host address provided with command line argument")
                         sys.exit(1)
-                
+
                 elif arg in ("-p", "--port"):
                     try:
                         portEnv = int(value)
                     except Exception:
                         print("Error: Invaid port number provided with command line argument")
                         sys.exit(1)
-                
+
                 elif arg in ("-d", "--debug"):
                     debugFlag = True
 
