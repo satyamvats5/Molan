@@ -1,0 +1,22 @@
+--- 
+language: python
+services: 
+  - docker
+sudo: required
+before_install: 
+  - "docker build -t satyamvats/molan -f Dockerfile.dev ."
+script:
+  - "bundle exec rake test"
+deploy: 
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "molan"
+  env: "Molan-env"
+  bucket_name: "elasticbeanstalk-us-east-2-265143807446"
+  bucket_path: "molan"
+  on: 
+    branch: master  
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: 
+    secure: "$AWS_SECRET_KEY"
+  
